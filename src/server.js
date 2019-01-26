@@ -5,7 +5,7 @@ var fs = require("fs");
 // for simplicity path is hardcoded now
 var PATH_TO_INPUT_FILE = __dirname + "/" + "testSurvey.qsf";
 
-app.get('/show', function (req, res) {
+app.get('/convert', function (req, res) {
     fs.readFile(PATH_TO_INPUT_FILE, 'utf8', function (err, data) {
         if (err) {
             throw err;
@@ -30,6 +30,36 @@ function convertToJson(fileData){
 	
 	var jsonData = JSON.parse(fileData);	
 	console.log(jsonData.SurveyElements); // only for test purposes. remove this line later
-	
+    
+    var questionNodes = extractQuestionNodes(jsonData);
+
 	return "Not implemented";
+}
+
+// counts and returns the number of questions in survey
+// argument - survey data as a JSON object
+function countQuestions(surveyData){
+    var counter = 0;
+
+    surveyData.SurveyElements.forEach(node => {
+        if(node.Element == "SQ"){ // SQ - Survey Question
+            counter++;
+        }
+    });
+
+    return counter;
+}
+
+// extracts and returns the question nodes
+// argument - survey data as a JSON object
+function extractQuestionNodes(surveyData){
+    var questionNodes = [];
+
+    surveyData.SurveyElements.forEach(node => {
+        if(node.Element == "SQ"){ // SQ - Survey Question
+            questionNodes.push(node);
+        }
+    });
+
+    return questionNodes;
 }
