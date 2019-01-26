@@ -3,7 +3,7 @@ var app = express();
 var fs = require("fs");
 
 // for simplicity path is hardcoded now
-var PATH_TO_INPUT_FILE = __dirname + "/" + "testSurvey.qsf";
+var PATH_TO_INPUT_FILE = __dirname + "/" + "survey_standart_question_types.qsf";
 
 app.get('/convert', function (req, res) {
     fs.readFile(PATH_TO_INPUT_FILE, 'utf8', function (err, data) {
@@ -28,17 +28,17 @@ function convertToJson(fileData){
 	// here we need to use JSON parser because
 	// .sqf files content is compressed into 1 text line
 	
-	var jsonData = JSON.parse(fileData);	
-	console.log(jsonData.SurveyElements); // only for test purposes. remove this line later
-    
+	var jsonData = JSON.parse(fileData);	    
     var questionNodes = extractQuestionNodes(jsonData);
+
+	console.log(questionNodes); // only for test purposes. remove this line later
 
 	return "Not implemented";
 }
 
 // counts and returns the number of questions in survey
 // argument - survey data as a JSON object
-function countQuestions(surveyData){
+function countQuestionNodes(surveyData){
     var counter = 0;
 
     surveyData.SurveyElements.forEach(node => {
