@@ -68,7 +68,10 @@ function extractQuestionNodes(surveyData){
 // argument = question nodes as a json object
 function sortQuestionNodes(questionNodes){
     questionNodes.sort(function(a, b){
-        //return a.Payload.DataExportTag > b.Payload.DataExportTag;
         return a.Payload.QuestionID > b.Payload.QuestionID;
     });
+}
+
+function generateQuestionId(questionNumber){
+    return "v" + questionNumber; 
 }
