@@ -4,7 +4,7 @@ var fs = require("fs");
 var qsfWorker = require("./qsfWorker.js");
 
 // for simplicity path is hardcoded now
-var PATH_TO_INPUT_FILE = __dirname + "/../input/" + "survey_standart_question_types.qsf";
+var PATH_TO_INPUT_FILE = __dirname + "/../input/" + "survey.qsf";
 
 app.get('', function (req, res) {
     fs.readFile(PATH_TO_INPUT_FILE, 'utf8', function (err, data) {
