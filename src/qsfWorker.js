@@ -1,12 +1,4 @@
-var QuestionType = Object.freeze(
-    {
-        MC : 1, // Multi Choice (Radio)
-        Matrix : 2,
-        Slider : 3,
-        SBS : 4, // Side by Side
-        RO : 5, // Rank Order
-        TE : 6 // Text Entry
-    })
+var questionConverter = require("./questionConverter.js");
 
 // formats and returns a JSON file containing questions and possible answers
 // parameter - qualtrics exported .qsf file content
@@ -17,23 +9,18 @@ module.exports.convertToJson = function convertToJson(fileData){
 	var jsonData = JSON.parse(fileData);	    
     var questionNodes = extractQuestionNodes(jsonData);
 
-    questionNodes.forEach(node => {
-        switch(node.QuestionType){
-            case QuestionType.MC:
-                var outputNode = {
-                    id,
-                    type,
-                    title
-                }
-                
-                break;
-        }
-    });
-
     sortQuestionNodes(questionNodes);
+
+    var output = [];
+
+    for(var i = 0; i < questionNodes.length; i++){
+        var outputNode = questionConverter.convert(questionNodes[i], i+1);
+        output.push(outputNode);
+    }
+
     console.log(questionNodes); // only for test purposes. remove this line later
 
-	return "Not implemented";
+    return JSON.stringify(output);
 }
 
 // counts and returns the number of questions in survey
@@ -70,8 +57,4 @@ function sortQuestionNodes(questionNodes){
     questionNodes.sort(function(a, b){
         return a.Payload.QuestionID > b.Payload.QuestionID;
     });
-}
-
-function generateQuestionId(questionNumber){
-    return "v" + questionNumber; 
 }

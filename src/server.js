@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var fs = require("fs");
-var surveyWorker = require("./surveyWorker.js");
+var qsfWorker = require("./qsfWorker.js");
 
 // for simplicity path is hardcoded now
 var PATH_TO_INPUT_FILE = __dirname + "/../input/" + "survey_standart_question_types.qsf";
@@ -12,7 +12,7 @@ app.get('', function (req, res) {
             throw err;
         }
 		
-		var outputJson = surveyWorker.convertToJson(data);		
+		var outputJson = qsfWorker.convertToJson(data);		
 		res.end(outputJson);	
     });
 })
