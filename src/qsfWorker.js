@@ -18,9 +18,9 @@ module.exports.convertToJson = function convertToJson(fileData){
         output.push(outputNode);
     }
 
-    console.log(questionNodes); // only for test purposes. remove this line later
+    console.log(output); // only for test purposes. remove this line later
 
-    return JSON.stringify(output);
+    return output;
 }
 
 // counts and returns the number of questions in survey

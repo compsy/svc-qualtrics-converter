@@ -11,9 +11,8 @@ app.get('', function (req, res) {
         if (err) {
             throw err;
         }
-		
 		var outputJson = qsfWorker.convertToJson(data);		
-		res.end(outputJson);	
+		res.json(outputJson);	
     });
 })
 
