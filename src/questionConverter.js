@@ -19,7 +19,7 @@ var Selector = Object.freeze(
         ESTB: "ESTB"    // Essay Text Box
     })
 
-module.exports.convert = function convert(questionNode, questionNumber){
+module.exports.convert = function convert(questionNode, questionNumber) {
     var outputNode = null;
 
     switch(questionNode.Payload.QuestionType){
@@ -36,7 +36,7 @@ module.exports.convert = function convert(questionNode, questionNumber){
             break;
     }
 
-    if(outputNode != null){
+    if (outputNode != null) {
         removeUnassignedValues(outputNode);
         return outputNode;
     }
@@ -44,44 +44,44 @@ module.exports.convert = function convert(questionNode, questionNumber){
     return "Unsupported question type";
 }
 
-function processMCQuestion(questionNode, questionNumber){
+function processMCQuestion(questionNode, questionNumber) {
     var outputNode = { id:null, type:null, title:null, options:[] };
             
     outputNode.id = generateQuestionId(questionNumber);
     outputNode.title = questionNode.Payload.QuestionText;
-    if(questionNode.Payload.Selector == Selector.DL){
+    if (questionNode.Payload.Selector == Selector.DL) {
         outputNode.type = "dropdown"
-    }else{
+    } else {
         outputNode.type = "radio";
     }
-    Object.values(questionNode.Payload.Choices).forEach(function(choice){
+    Object.values(questionNode.Payload.Choices).forEach(function(choice) {
         outputNode.options.push(choice.Display);
     });
 
     return outputNode
 }
 
-function processTEQuestion(questionNode, questionNumber){
+function processTEQuestion(questionNode, questionNumber) {
     var outputNode = { id:null, type:null, title:null };
 
     outputNode.id = generateQuestionId(questionNumber);
     outputNode.title = questionNode.Payload.QuestionText;
-    if(questionNode.Payload.Selector == Selector.SL){
+    if(questionNode.Payload.Selector == Selector.SL) {
         outputNode.type = "textfield";
-    }else {
+    } else {
         outputNode.type = "textarea";
     }
 
     return outputNode;
 }
 
-function processSliderQuestion(questionNode, questionNumber){
+function processSliderQuestion(questionNode, questionNumber) {
     var outputNode = { id:null, type:null, title:null, labels:[], min:null, max:null };
 
     outputNode.id = generateQuestionId(questionNumber);  
     outputNode.title = questionNode.Payload.QuestionText;
     outputNode.type = "range";
-    Object.values(questionNode.Payload.Labels).forEach(function(label){
+    Object.values(questionNode.Payload.Labels).forEach(function(label) {
         outputNode.labels.push(label.Display);
     });
     outputNode.min = questionNode.Payload.Configuration.CSSliderMin;
@@ -93,18 +93,18 @@ function processSliderQuestion(questionNode, questionNumber){
 
 
 
-function generateQuestionId(questionNumber){
+function generateQuestionId(questionNumber) {
     return "v" + questionNumber; 
 }
 
-function removeUnassignedValues(outputNode){
+function removeUnassignedValues(outputNode) {
 
-    if(outputNode === null){
+    if (outputNode === null) {
         return outputNode;
     }
 
     Object.keys(outputNode).forEach(function (key) {
-        if(outputNode[key] === null){
+        if (outputNode[key] === null) {
             delete outputNode[key];
         }
     });
