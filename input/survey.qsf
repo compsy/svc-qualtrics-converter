@@ -30,9 +30,6 @@
 					"ID": "BL_5z6721Azw24uVlX",
 					"BlockElements": [{
 							"Type": "Question",
-							"QuestionID": "QID1"
-						}, {
-							"Type": "Question",
 							"QuestionID": "QID2"
 						}, {
 							"Type": "Question",

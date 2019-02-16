@@ -29,11 +29,45 @@ function getOutputQiestionNodesIdBetween(outputQuestionNodes, outputQuestionIdFr
 }
 
 // sorts questions nodes by their initial order
-// argument = question nodes as a json object
-module.exports.sortQuestionNodes = function sortQuestionNodes(questionNodes) {
-    questionNodes.sort(function(a, b) {
-        return a.Payload.QuestionID > b.Payload.QuestionID;
+// input:
+//      qsfContent: qsf file content as a json file
+//      inputQuestionNodes: questions nodes extracted from qsf content 
+module.exports.sortQuestionNodes = function sortQuestionNodes(qsfContent, inputQuestionNodes) {
+    var surveyBlocks = null;
+    
+    qsfContent.SurveyElements.forEach(function (surveyElement) {
+        if (surveyElement.Element == "BL") {
+            surveyBlocks = surveyElement;
+        }
     });
+
+    if (surveyBlocks == null) {
+        return; // or throw some custom exception
+    }
+
+    var questionElements = []; // array of { Type: "Question", QuestionID: "id" }
+
+    surveyBlocks.Payload.forEach(function (surveyBlock) {
+        if (surveyBlock.Type == "Trash") {
+            return;
+        }
+
+        surveyBlock.BlockElements.forEach(function (blockElement) {
+            if (blockElement.Type == "Question"){
+                questionElements.push(blockElement);
+            }
+        });
+    });
+
+    for (var i = 0; i < questionElements.length; i++) {    
+        for (var y = 0; y < inputQuestionNodes.length; y++) {    
+            if (questionElements[i].QuestionID == inputQuestionNodes[y].Payload.QuestionID) {
+                var temp = inputQuestionNodes[i];
+                inputQuestionNodes[i] = inputQuestionNodes[y];
+                inputQuestionNodes[y] = temp;
+            }
+        }
+    }
 }
 
 // input:
