@@ -171,12 +171,9 @@ module.exports.attachSkipLogic = function attachSkipLogic(outputQuestionNodes, s
             skipLogicNodesForBlock.forEach(function (skipLogicNode) {
                 if(outputQuestionNode.oldQuestionId == skipLogicNode.QuestionID){
                     var optionId = skipLogicNode.Locator.split('/').pop();
-                    var hidesQuestions = outputQuestionNode.options[optionId-1].hides_questions;
                     var skipToQuestion = findOutputQuestionNode(outputQuestionNodes, skipLogicNode.SkipToDestination).id;
                     var questionsToHide = getOutputQiestionNodesIdBetween(outputQuestionNodes, outputQuestionNode.id, skipToQuestion);
-                    if (hidesQuestions === null || typeof hidesQuestions === "undefined") {
-                        outputQuestionNode.options[optionId-1].hides_questions = "%i["+questionsToHide.toString().replace('.',' ')+"]";
-                    } 
+                    outputQuestionNode.options[optionId-1].hides_questions = "%i["+questionsToHide.toString().replace(',',' ')+"]";
                 }
             });
         });
