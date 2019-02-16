@@ -11,8 +11,7 @@ function testGet_ValidSurvey(pathToQsfFile){
 function testGet_EmptySurvey(pathToQsfFile){    
     var output = server.get(pathToQsfFile);
 
-    var expectedValue = [];
-    assert.AreEqual(output.toString(), expectedValue.toString());
+    assert.AreEqual(output.length, 0);
 }
 
 module.exports.runTests = function runTests() {
