@@ -3,12 +3,12 @@ var Helper = require("./helper.js");
 var QuestionType = Object.freeze(
     {
         MC : "MC",          // Multi Choice (Radio)
-        Matrix : "Matrix",
+        Matrix : "Matrix",  //                      - currently not supported
         Slider : "Slider",
-        SBS : "SBS",        // Side by Side
-        RO : "RO",          // Rank Order
+        SBS : "SBS",        // Side by Side         - currently not supported
+        RO : "RO",          // Rank Order           - currently not supported
         TE : "TE",          // Text Entry
-        DB : "DB"           // Descriptive Text
+        DB : "DB"           // Descriptive Text     - currently not supported
     })
 
 var Selector = Object.freeze(
@@ -105,7 +105,7 @@ function performQuestionTypeSpecificProcessing(questionNode, questionNumber){
             return processSliderQuestion(questionNode, questionNumber);
     }
 
-    throw "Question type '" + questionType + "' is not supported";
+    throw new Error("Question type '" + questionType + "' is not supported");
 }
 
 // has to be called after performQuestionTypeSpecificProcessing
