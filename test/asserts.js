@@ -2,13 +2,13 @@ module.exports = {
 
     AreEqual: function (actual, expected) {
         if (expected !== actual) {
-            throw new Error("Assert.AreEqual failed. Expected value " + expected + " is not equal to " + actual);
+            throw new Error("Assert.AreEqual failed. Expected value " + expected + " is not equal to " + actual + '.');
         }
     },
 
     AreNotEqual: function (actual, expected) {
         if (expected === actual) {
-            throw new Error("Assert.AreNotEqual failed. Expected value " + expected + " is equal to " + actual);
+            throw new Error("Assert.AreNotEqual failed. Expected value " + expected + " is equal to " + actual + '.');
         }
     },
 

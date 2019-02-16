@@ -25,9 +25,15 @@ module.exports.convert = function convert(qsfContent) {
     var jsonData = JSON.parse(qsfContent);	
     var inputQuestions = Helper.extractQuestionNodes(jsonData);
 
-    Helper.sortQuestionNodes(jsonData, inputQuestions);
+    Helper.removeQuestionsFromTrash(jsonData, inputQuestions);
 
     var outputQuestionNodes = [];
+
+    if (inputQuestions.length <= 0) {
+        return outputQuestionNodes;
+    }
+
+    Helper.sortQuestionNodes(jsonData, inputQuestions);
 
     for(var i = 0; i < inputQuestions.length; i ++){
         var outputQuestionNode = performQuestionTypeSpecificProcessing(inputQuestions[i], i+1);

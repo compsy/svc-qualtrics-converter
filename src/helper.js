@@ -215,3 +215,44 @@ module.exports.attachSkipLogic = function attachSkipLogic(outputQuestionNodes, s
 
     return outputQuestionNodes;
 }
+
+module.exports.removeQuestionsFromTrash = function removeQuestionsFromTrash(qsfContent, inputQuestionNodes) {
+    var questionsInTrash = getQuestionsInTrash(qsfContent);
+
+    for (var i = 0; i < questionsInTrash.length; i++) {
+        for (var y = 0; y < inputQuestionNodes.length; y++) {
+            if (inputQuestionNodes[y].Payload.QuestionID == questionsInTrash[i].QuestionID) {
+                inputQuestionNodes.splice(y, 1); // remove that question from inputQuestionNodes array
+            }
+        }
+    }
+}
+
+function getTrashSurveyBlock(qsfContent) {
+    var trashBlock = null;
+
+    qsfContent.SurveyElements.forEach(function (surveyElement) {
+        if (surveyElement.Element == "BL") {
+            surveyElement.Payload.forEach(function (surveyBlock) {
+                if (surveyBlock.Type == "Trash") {
+                    trashBlock = surveyBlock;
+                }
+            });
+        }
+    });
+
+    return trashBlock;
+}
+
+function getQuestionsInTrash(qsfContent) {
+    var trashBlock = getTrashSurveyBlock(qsfContent);
+    var questionsInTrash = [];
+
+    trashBlock.BlockElements.forEach(function (blockElement) {
+        if (blockElement.Type == "Question"){
+            questionsInTrash.push(blockElement);
+        }
+    });
+
+    return questionsInTrash;
+}
