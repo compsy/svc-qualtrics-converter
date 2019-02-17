@@ -25,3 +25,8 @@ ACCESSING THE SERVICE:
 
   1. Open any web browser
   2. Access service at http://localhost:8081
+
+TESTING:
+  
+  - Tests can be run via "node test" command
+  - Tests result will be printed to the console
