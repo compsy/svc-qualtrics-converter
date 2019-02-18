@@ -51,9 +51,9 @@ Adding/extending question types support:
 
   Questions are processed by a "src/qsfConverter.js" file. New/existing questions types support can be easily added/extended via "src/qsfConverter.js" file. If you take a look at the file, there are few functions: 
 
-    - "performQuestionTypeSpecificProcessing" - function for determining the question type
-    - "process<QuestionType>Question" - function for processing a specific question type, eg. ("processSliderQuestion")
-    - "performGeneralProcessing" - function for general questions processing.
+  - "performQuestionTypeSpecificProcessing" - function for determining the question type
+  - "process<QuestionType>Question" - function for processing a specific question type, eg. ("processSliderQuestion")
+  - "performGeneralProcessing" - function for general questions processing.
      
   As questions type specific processing logic is quite simple, there were no need to separate it into different files/classes. However, if the logic grows/becomes more complex, it can be easily done. For now if there is a need to add support to other question types, function "performQuestionTypeSpecificProcessing" should be extended and then a new function for processing that question type has to be added.
 
