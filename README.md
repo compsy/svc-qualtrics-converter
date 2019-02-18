@@ -42,10 +42,10 @@ Qualtrics Survey File (*.qsf) :
 Question types support:
 
   Currently service supports:
-  
-    - radio ("MC") question types
-    - text ("TE") question types
-    - range ("Slider") question types
+
+  - radio ("MC") question types
+  - text ("TE") question types
+  - range ("Slider") question types
 
 Adding/extending question types support:
 
