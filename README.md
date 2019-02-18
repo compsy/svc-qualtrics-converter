@@ -42,6 +42,7 @@ Qualtrics Survey File (*.qsf) :
 Question types support:
 
   Currently service supports:
+  
     - radio ("MC") question types
     - text ("TE") question types
     - range ("Slider") question types
@@ -49,6 +50,7 @@ Question types support:
 Adding/extending question types support:
 
   Questions are processed by a "src/qsfConverter.js" file. New/existing questions types support can be easily added/extended via "src/qsfConverter.js" file. If you take a look at the file, there are few functions: 
+
     - "performQuestionTypeSpecificProcessing" - function for determining the question type
     - "process<QuestionType>Question" - function for processing a specific question type, eg. ("processSliderQuestion")
     - "performGeneralProcessing" - function for general questions processing.
